@@ -7,22 +7,24 @@ Our task is to use a deep learning architecture to identify the underlying emoti
 - Python 3.10.16
   
 **Packages**:
-- Transformers
-- torchvision
+- matplotlib
+- mamba-ssm
+- numpy
+- pandas
+- pytorch-lightning
+- pytorch-metric-learning
+- random
+- scipy
+- seaborn
+- soundfile
 - torch
 - torch-audiomentations
 - torch-pitch-shift
 - torchaudio
 - torchmetrics
 - torchvision
-- soundfile
-- scipy
-- seaborn
-- pytorch-lightning
-- pytorch-metric-learning
-- pandas
-- numpy
-- matplotlib
+- torchvision (duplicate)
+- transformers
 
 Installed in conda environment using: 
 
