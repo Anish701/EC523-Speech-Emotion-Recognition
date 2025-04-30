@@ -1,0 +1,6 @@
+gradio
+torch
+librosa
+numpy
+scipy
+soundfile
