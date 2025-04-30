@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+torch
+librosa
+numpy
+scipy
+python-multipart
