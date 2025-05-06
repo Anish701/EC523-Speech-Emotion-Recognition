@@ -162,25 +162,25 @@ class Base_CNN_Transformer(nn.Module):
         x = self.relu(self.apply_layernorm(self.pool(self.conv1(x))))
         x = self.relu(self.apply_layernorm(self.pool(self.conv2(x))))
         x = self.relu(self.apply_layernorm(self.pool(self.conv3(x))))
-        x = self.relu(self.apply_layernorm(self.pool(self.conv4(x))))  # [B, D, F, T]
+        x = self.relu(self.apply_layernorm(self.pool(self.conv4(x))))
 
         B, D, F, T = x.shape
 
         # Rearrange for transformer: each time step is a token
-        x = x.permute(0, 3, 1, 2)         # [B, T, D, F]
-        x = x.reshape(B, T, D * F)        # [B, T, D*F]
-        x = self.project(x)               # [B, T, D]
+        x = x.permute(0, 3, 1, 2)
+        x = x.reshape(B, T, D * F)
+        x = self.project(x)
 
-        # Transformer expects [T, B, D]
-        x = x.permute(1, 0, 2)            # [T, B, D]
+        # expects [T, B, D]
+        x = x.permute(1, 0, 2)
         x = self.pos_encoder(x)
         x = self.transformer_encoder(x)
 
-        # Back to [B, D, T] for pooling
-        x = x.permute(1, 2, 0)            # [B, D, T]
-        x = self.global_pool(x).squeeze(2)  # [B, D]
+        # Back to [B, D, T]
+        x = x.permute(1, 2, 0)
+        x = self.global_pool(x).squeeze(2)
 
-        x = self.classifier(x)  # [B, 6]
+        x = self.classifier(x)
         return x
 
 class Base_CNN_GRU(nn.Module):
@@ -204,15 +204,14 @@ class Base_CNN_GRU(nn.Module):
 
         self.residualConv = nn.Conv2d(1, 64, kernel_size=1, stride=2, padding=1)
 
-        # GRU expects input_size = 256 (channels), and sequence length = width
         self.gru = nn.GRU(input_size=256*8, hidden_size=128, num_layers=1,
                           batch_first=True, bidirectional=True)
 
-        self.classifier1 = nn.Linear(128 * 2, 64)  # bidirectional
+        self.classifier1 = nn.Linear(128 * 2, 64)
         self.classifier2 = nn.Linear(64, 6)
 
     def forward(self, x):
-        residual = x  # x: [B, 1, 128, 256]
+        residual = x
 
         x = self.conv1(x)
         x = self.relu(x)
@@ -221,7 +220,7 @@ class Base_CNN_GRU(nn.Module):
 
         x = self.conv2(x)
         residual = self.residualConv(residual)
-        x = F.pad(x, (0, 1))  # pad width to align
+        x = F.pad(x, (0, 1))
         residual = residual[:, :, :x.shape[2], :x.shape[3]]
         x = x + residual
 
@@ -239,17 +238,14 @@ class Base_CNN_GRU(nn.Module):
         x = self.pool(x)
         x = self.bn4(x)
 
-        # x: [B, 256, H, W] — after all CNN and pooling layers
         B, C, H, W = x.shape
         
-        # Reshape for GRU: treat W as time steps, and C*H as input features
-        x = x.permute(0, 3, 1, 2)  # [B, W, C, H]
-        x = x.contiguous().view(B, W, C * H)  # [B, W, C*H]
+        x = x.permute(0, 3, 1, 2)
+        x = x.contiguous().view(B, W, C * H)
 
-        # Update GRU input size if needed
-        x, _ = self.gru(x)  # GRU input_size = C*H
+        x, _ = self.gru(x)
 
-        x = x[:, -1, :]  # last time step
+        x = x[:, -1, :]
         x = self.classifier1(x)
         x = self.classifier2(x)
 
