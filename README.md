@@ -69,13 +69,6 @@ The table below shows the test accuracies for all our of our models to be above 
 | Mamba  | 72.79  | 98.62  |
 | Mamba CNN | 74.29 | 81.95 | 
 
-| Dataset  | Test Accuracy (%) | Training Accuracy (%) |
-| ------------- | ------------- | ------------- |
-| CREMA-D  | 65.82  | 99.24  |
-| RAVDESS  | 79.25  | 99.76  |
-| TESS  | 100  | 100  |
-| SAVEE  | 72.62  | 90.18  |
-
 ## Citation
 -  T. V. L. Trinh, D. T. L. T. Dao, L. X. T. Le, and E. Castelli, “Emotional speech recognition using deep neural networks,” Sensors (Basel), vol. 22, no. 4, p. 1414, Feb. 2022, doi: 10.3390/s22041414. 
 - R. A. Khalil, E. Jones, M. I. Babar, T. Jan, M. H. Zafar, and T. Alhussain, "Speech emotion recognition using deep learning techniques: A review," IEEE Access, vol.7,pp.117327–117345,2019,doi:10.1109/ACCESS.2019.2936124.
