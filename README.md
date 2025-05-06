@@ -36,9 +36,9 @@ Installed in conda environment using:
 ### How to run: 
 
 Launch a Jupyter notebook with the following settings:
-- List of modules to load: miniconda, python, torch, and tensorflow
+- List of modules to load: miniconda, python, torch, and tensorflow.
 - Pre-Launch Command: conda activate *your_project_location*/envs/mamba-env/
-- 5 cores minimum, but you can lower the number of workers 
+- Default: 5 cores minimum, but you can lower the number of workers if necessary. 
 
 
 ## Dataset
