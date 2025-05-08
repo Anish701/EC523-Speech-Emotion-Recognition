@@ -24,7 +24,6 @@ Our task is to use a deep learning architecture to identify the underlying emoti
 - torchaudio
 - torchmetrics
 - torchvision
-- torchvision (duplicate)
 - transformers
 
 Installed in conda environment using: 
@@ -68,6 +67,17 @@ The table below shows the test accuracies for all our of our models to be above 
 | ResNet  | 70.89  | 95.53  |
 | Mamba  | 72.79  | 98.62  |
 | Mamba CNN | 74.29 | 81.95 | 
+
+## Code Files Walkthrough
+The main.ipynb file contains the results of the CNN based models (Base CNN, CNN-Transformer, CNN-GRU, ResNet).
+
+The mamba.ipynb file contains the results of the base Mamba model. The mambaCNN.ipynb file contains the results of the Mamba-CNN combined model.
+
+The utils directory contains all of the helper methods. The preprocessing.py file stores the preprocessing and normalization methods. The data_loader.py file stores the dataset loader methods. The train_utils.py file contains the training, testing, and accuracy measurement methods. The models.py contains the implementations of the CNN based models.
+
+The hf-demo directory contains the code for the UI demo (HuggingFace).
+
+The single-dataset-esting directory contains the results of the Base CNN model when it was run on each of the datasets individually.
 
 ## Citation
 -  T. V. L. Trinh, D. T. L. T. Dao, L. X. T. Le, and E. Castelli, “Emotional speech recognition using deep neural networks,” Sensors (Basel), vol. 22, no. 4, p. 1414, Feb. 2022, doi: 10.3390/s22041414. 
